@@ -60,7 +60,7 @@ public:
 };
 
 Ball ball;
-Paddle player;
+Paddle pd;
 Box box[10][28];
 int score = 0;
 
@@ -78,30 +78,31 @@ int main() {
     ball.speed_x = 7;
     ball.speed_y = 7;
 
-    player.x = screenWidth / 2 - 100;
-    player.y = 850 + 15;
-    player.width = 200;
-    player.height = 20;
-    player.speed = 8;
+    pd.x = screenWidth / 2 - 100;
+    pd.y = 850 + 15;
+    pd.width = 200;
+    pd.height = 20;
+    pd.speed = 7;
 
     for (int j = 0; j < 10; j++) {
-        for (int i = 0; i < 28; i++) {
-            box[j][i].width = 100;
-            box[j][i].height = 20;
-            box[j][i].y = 100 + j * 25;
-            box[j][i].x = 100 + i * 55;
-            box[j][i].active = true;
-        }
+    for (int i = 0; i < 28; i++) {
+        box[j][i].width = 100;
+        box[j][i].height = 20;
+        box[j][i].y = 100 + j * 25; 
+        box[j][i].x = 10 + i * (100 + 5); 
+        box[j][i].active = true;
     }
+}
+
 
     while (WindowShouldClose() == false) {
         BeginDrawing();
         ClearBackground(BLACK);
 
         ball.Update();
-        player.Update();
+        pd.Update();
 
-        if (CheckCollisionCircleRec({ ball.x, ball.y }, ball.radius, { player.x, player.y, player.width, player.height })) {
+        if (CheckCollisionCircleRec({ ball.x, ball.y }, ball.radius, { pd.x, pd.y, pd.width, pd.height })) {
             ball.speed_y *= -1;
         }
 
@@ -116,7 +117,7 @@ int main() {
         }
 
         ball.Draw();
-        player.Draw();
+        pd.Draw();
 
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 28; i++) {
@@ -136,14 +137,14 @@ int main() {
         if (ball.y > groundThreshold) {
             DrawText("Game Over! ", 550, screenHeight / 2 - 25, 50, RED);
             DrawText(("Final Score: " + to_string(score)).c_str(), 550, screenHeight / 2 + 50, 50, GREEN);
-            DrawText("Press SPACE to restart. ", 550, screenHeight / 2 +50+75, 50, RED);
+            DrawText("Press SPACE to restart. ", 550, screenHeight / 2 + 50 + 75, 50, RED);
             if (IsKeyPressed(KEY_SPACE)) {
                 ball.x = screenWidth / 2;
                 ball.y = 850;
                 ball.speed_x = 7;
                 ball.speed_y = 7;
 
-                player.x = screenWidth / 2 - 100;
+                pd.x = screenWidth / 2 - 100;
 
                 for (int j = 0; j < 10; j++) {
                     for (int i = 0; i < 28; i++) {
