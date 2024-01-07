@@ -4,7 +4,7 @@
 Dx Ball is a classic brick-breaking game implemented using the Raylib game development library. The game features a bouncing ball, a paddle, and bricks to break. It includes functionality for scoring and a game restart option. The project was developed by Team Project-DX, consisting of Thowfiqur Bari Chowdhury and Fardin Hasan Samy, as part of the CSE course at Shahjalal University of Science and Technology (SUST).
 
 ## Screenshots
-<img src="dx ball.png" alt="Game Screenshot" width="700" height="350">
+<img src="game screenshot.png" alt="Game Screenshot" width="700" height="350">
 ## Features
 - Classic brick-breaking gameplay
 - Paddle and ball mechanics
