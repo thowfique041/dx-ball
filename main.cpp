@@ -34,7 +34,7 @@ public:
     int speed;
 
     void Draw() {
-        DrawRectangle(x, y, width, height, YELLOW);
+        DrawRectangle(x, y, width, height, BLUE);
     }
 
     void Update() {
@@ -53,15 +53,16 @@ public:
     float x, y;
     float width, height;
     bool active;
+    Color color;
 
     void Draw() {
-        if (active) DrawRectangle(x, y, width, height, GREEN);
+        if (active) DrawRectangle(x, y, width, height, color);
     }
 };
 
 Ball ball;
 Paddle pd;
-Box box[10][28];
+Box box[10][55];
 int score = 0;
 
 int main() {
@@ -71,6 +72,9 @@ int main() {
 
     InitWindow(screenWidth, screenHeight, "GROUP MEMBER: Thowfiq & Fardin. TEAM NAME: Project Dx. CSE-21 SUST");
     SetTargetFPS(60);
+
+    
+    Texture2D background = LoadTexture("dx.png");
 
     ball.x = screenWidth / 2;
     ball.y = 850;
@@ -85,19 +89,22 @@ int main() {
     pd.speed = 7;
 
     for (int j = 0; j < 10; j++) {
-    for (int i = 0; i < 28; i++) {
-        box[j][i].width = 100;
-        box[j][i].height = 20;
-        box[j][i].y = 100 + j * 25; 
-        box[j][i].x = 10 + i * (100 + 5); 
-        box[j][i].active = true;
+        for (int i = 0; i < 55; i++) {
+            box[j][i].width = 30;
+            box[j][i].height = 20;
+            box[j][i].y = 100 + j * 25;
+            box[j][i].x = 10 + i * (30 + 5);
+            box[j][i].active = true;
+            box[j][i].color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255 }; // Random color
+        }
     }
-}
-
 
     while (WindowShouldClose() == false) {
         BeginDrawing();
         ClearBackground(BLACK);
+
+       
+        DrawTexture(background, 0, 0, WHITE);
 
         ball.Update();
         pd.Update();
@@ -107,7 +114,7 @@ int main() {
         }
 
         for (int j = 0; j < 10; j++) {
-            for (int i = 0; i < 28; i++) {
+            for (int i = 0; i < 55; i++) {
                 if (box[j][i].active && CheckCollisionCircleRec({ ball.x, ball.y }, ball.radius, { box[j][i].x, box[j][i].y, box[j][i].width, box[j][i].height })) {
                     ball.speed_y *= -1;
                     box[j][i].active = false;
@@ -120,7 +127,7 @@ int main() {
         pd.Draw();
 
         for (int j = 0; j < 10; j++) {
-            for (int i = 0; i < 28; i++) {
+            for (int i = 0; i < 55; i++) {
                 box[j][i].Draw();
             }
         }
@@ -147,8 +154,9 @@ int main() {
                 pd.x = screenWidth / 2 - 100;
 
                 for (int j = 0; j < 10; j++) {
-                    for (int i = 0; i < 28; i++) {
+                    for (int i = 0; i < 55; i++) {
                         box[j][i].active = true;
+                        box[j][i].color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255 }; // Reset color for all boxes to random
                     }
                 }
 
@@ -158,6 +166,9 @@ int main() {
 
         EndDrawing();
     }
+
+    
+    UnloadTexture(background);
 
     CloseWindow();
     return 0;
