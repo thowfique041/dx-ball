@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstdlib> // Include for rand function
+#include <cstdlib> 
 #include <raylib.h>
 
 using namespace std;
