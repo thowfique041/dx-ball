@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib> // Include for rand function
 #include <raylib.h>
 
 using namespace std;
@@ -102,10 +103,11 @@ int main() {
             box[j][i].y = 100 + j * 25;
             box[j][i].x = 10 + i * (30 + 5);
             box[j][i].active = true;
-            box[j][i].color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255 }; // Random color
+            box[j][i].color = { static_cast<unsigned char>(rand() % 256), static_cast<unsigned char>(rand() % 256), static_cast<unsigned char>(rand() % 256), 255 }; // Random color using rand
         }
     }
-        // Game loop
+
+    // Game loop
     while (WindowShouldClose() == false) {
         BeginDrawing();
         ClearBackground(BLACK);
@@ -133,7 +135,7 @@ int main() {
             }
         }
 
-        // Draw elements on screen
+        // Draw elements on the screen
         ball.Draw();
         pd.Draw();
 
@@ -160,7 +162,7 @@ int main() {
             DrawText(("Final Score: " + to_string(score)).c_str(), 550, screenHeight / 2 + 50, 50, GREEN);
             DrawText("Press SPACE to play again. ", 550, screenHeight / 2 + 50 + 75, 50, RED);
 
-            // Restart the game if space key is pressed
+            // Restart the game if the space key is pressed
             if (IsKeyPressed(KEY_SPACE)) {
                 // Reset ball position and speed
                 ball.x = screenWidth / 2;
@@ -175,11 +177,11 @@ int main() {
                 for (int j = 0; j < 10; j++) {
                     for (int i = 0; i < 55; i++) {
                         box[j][i].active = true;
-                        box[j][i].color = { GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255 }; // Reset color for all boxes to random
+                        box[j][i].color = { static_cast<unsigned char>(rand() % 256), static_cast<unsigned char>(rand() % 256), static_cast<unsigned char>(rand() % 256), 255 }; // Reset color for all boxes to random
                     }
                 }
 
-                // Reset score
+                // Reset the score
                 score = 0;
             }
         }
